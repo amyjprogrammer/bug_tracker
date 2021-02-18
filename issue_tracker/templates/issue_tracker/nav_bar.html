@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{% url 'issue_tracker:home' %}">ISSUE TRACKER- Tickets</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2 border">
+  <div class="container-fluid">
+  <a class="navbar-brand ms-5" href="{% url 'issue_tracker:home' %}">TICKET TRACKER</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,4 +26,5 @@
       </li>
       {% endif %}
     </ul>
+  </div>
 </nav>

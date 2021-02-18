@@ -1,0 +1,26 @@
+.list-group-item-action {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 10px 10px 0px 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.list-group-item, .list-group-item:hover {
+  z-index: auto;
+}
+
+.issue-description {
+  font-size: 17px;
+  padding: 1rem 5rem 1rem 1rem;
+}
+
+.card-body {
+  padding: .5rem 1rem 0rem 1rem;
+}
