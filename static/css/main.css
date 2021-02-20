@@ -8,8 +8,8 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+#ticket_look:hover {
+  background-color: lightgray;
 }
 
 .list-group-item, .list-group-item:hover {
@@ -19,6 +19,7 @@ a:hover {
 .issue-description {
   font-size: 17px;
   padding: 1rem 5rem 1rem 1rem;
+  color: blue;
 }
 
 .card-body {

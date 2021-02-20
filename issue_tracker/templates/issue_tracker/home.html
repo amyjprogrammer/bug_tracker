@@ -6,9 +6,9 @@
 
   <div class="row list-group">
 
-    {% for ticket in tickets %}
+    {% for ticket in page_obj %}
 
-    <a href="{% url 'issue_tracker:ticket_comment' ticket.id %}" class="list-group-item-action flex-column align-items-start" id={{ ticket.id }}>
+    <a href="{% url 'issue_tracker:ticket_comment' ticket.id %}" class="list-group-item-action flex-column align-items-start" id="ticket_look">
       <div class="card card-body border-success mb-1 mt-2">
         <div class="d-flex w-100 justify-content-between ">
 
@@ -32,8 +32,24 @@
       </div>
     </a>
     {% endfor %}
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
 
-</div>
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
 
 
 
