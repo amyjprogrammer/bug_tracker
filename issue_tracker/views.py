@@ -4,18 +4,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-
+from .filters import TicketFilter
 from .models import Ticket, TicketComment, AdminTicket
 from .forms import TicketForm, TicketCommentForm, AdminTicketForm
 
 #Home page will show all the open tickets (no login required)
 def home(request):
     tickets = Ticket.objects.all().order_by('-date_added')
+    myFilter = TicketFilter(request.GET, queryset=tickets)
+    tickets = myFilter.qs
     paginator = Paginator(tickets,10) # Show 10 contacts per page.
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
+    context = {'page_obj': page_obj, 'tickets': tickets, 'myFilter': myFilter}
     return render(request, 'issue_tracker/home.html', context)
 
 def ticket_comment(request, ticket_id):

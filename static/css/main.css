@@ -20,6 +20,7 @@ a {
   font-size: 17px;
   padding: 1rem 5rem 1rem 1rem;
   color: blue;
+  margin-left: .5rem;
 }
 
 .card-body {
@@ -33,4 +34,12 @@ a {
 
 .asteriskField {
   display: none;
+}
+
+body {
+  background-color: #ebeff5;
+}
+
+label {
+  padding: .5rem;
 }
