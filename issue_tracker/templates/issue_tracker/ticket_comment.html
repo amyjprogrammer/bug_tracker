@@ -4,8 +4,64 @@
 
 {% block content %}
   <div class="row list-group">
-    <h3>under construction</h3>
+
+  {% for ticket in tickets %}
+  <div class="card card-body border-success mt-4">
+    <div class="d-flex w-100 justify-content-between ">
+      <h4 class="text-capitalize text-decoration-underline">{{ ticket.title }}</h4>
+    </div>
+
+    <div class="row mt-1 ">
+      <p class="issue-description text-truncate">{{ ticket.issue_description }}</p>
+    </div>
+    <div class="d-flex justify-content-between p-0">
+      <p>Author: {{ ticket.ticket_author }}</p>
+      <p>Date Added: {{ ticket.date_added|date:"M d, Y" }}</p>
+    </div>
   </div>
 
+  {% endfor %}
+  </div>
+
+  <hr>
+
+  <h3>Comments:</h3>
+  <div class="list-group">
+  {% for comment in page_obj %}
+    <div class="card mb-2" id="ticket-comments">
+      <div class="d-flex justify-content-between full-comment">
+          <blockquote class="blockquote">
+            <p class="mb-3 comment">{{ comment.comment_text|linebreaksbr }}</p>
+            <footer class="blockquote-footer"><small>{{ comment.comment_author }}</small></footer>
+          </blockquote>
+        <div class="date me-5">{{ comment.created_date }}</div>
+      </div>
+    </div>
+  {% empty %}
+  <p>No comments yet</p>
+  {% endfor %}
+
+  </div>
+  <a class="btn btn-primary" type="button" href="{% url 'issue_tracker:add_ticket_comment' ticket_id=ticket.id %}">Comment</a>
+
+
+  <!--Pagination for 10 per page -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 
 {% endblock content %}
