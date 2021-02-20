@@ -30,3 +30,7 @@ a {
 .full-comment {
     margin: 20px 0px 20px 20px;
 }
+
+.asteriskField {
+  display: none;
+}

@@ -22,7 +22,7 @@ class Ticket(models.Model):
 class TicketComment(models.Model):
     comment = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments')
     comment_author = models.CharField(max_length=75)
-    comment_text = models.CharField(max_length=350)
+    comment_text = models.CharField(max_length=550)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

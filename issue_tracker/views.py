@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 
 
 from .models import Ticket, TicketComment, AdminTicket
+from .forms import TicketForm, TicketCommentForm, AdminTicketForm
 
 #Home page will show all the open tickets (no login required)
 def home(request):
@@ -18,6 +19,7 @@ def home(request):
     return render(request, 'issue_tracker/home.html', context)
 
 def ticket_comment(request, ticket_id):
+    """show all the comments with one ticket"""
     tickets = Ticket.objects.filter(id=ticket_id)
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket_comments = ticket.comments.all().order_by('-created_date')
@@ -30,4 +32,19 @@ def ticket_comment(request, ticket_id):
 
 
 def add_ticket_comment(request, ticket_id):
-    return render(request, 'issue_tracker/add_ticket_comment.html')
+    """adding a comment form"""
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    if request.method != "POST":
+        #no data showing; create a blank form
+        form = TicketCommentForm()
+    else:
+        #adding a new comment
+        form = TicketCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.comment = ticket
+            comment.save()
+            return redirect('issue_tracker:ticket_comment', ticket_id=ticket.id)
+
+    context= {'form': form, 'ticket': ticket}
+    return render(request, 'issue_tracker/add_ticket_comment.html', context)
