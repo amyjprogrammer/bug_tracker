@@ -50,3 +50,11 @@ def add_ticket_comment(request, ticket_id):
 
     context= {'form': form, 'ticket': ticket}
     return render(request, 'issue_tracker/add_ticket_comment.html', context)
+
+@login_required
+def admin_dashboard(request):
+    """page for admin to see all issues and info"""
+    tickets = Ticket.objects.all()
+
+    context= {'tickets': tickets}
+    return render(request, 'issue_tracker/admin_dashboard.html', context)

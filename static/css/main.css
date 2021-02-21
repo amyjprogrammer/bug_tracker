@@ -8,6 +8,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 #ticket_look:hover {
   background-color: lightgray;
 }
