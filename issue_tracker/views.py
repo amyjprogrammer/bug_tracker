@@ -55,6 +55,18 @@ def add_ticket_comment(request, ticket_id):
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
     tickets = Ticket.objects.all()
+    ticket_comments = TicketComment.objects.all()
+    admin_tickets = AdminTicket.objects.all()
 
-    context= {'tickets': tickets}
+    open_admin = AdminTicket.objects.filter(status_choice = 'Open')
+    open_tickets = open_admin.count()
+    open_critical_tickets = open_admin.filter(priority_choice='Critical').count()
+
+    pending_admin = AdminTicket.objects.filter(status_choice = 'Pending')
+    pending_tickets = pending_admin.count()
+    pending_critical_tickets = pending_admin.filter(priority_choice='Critical').count()
+
+    critical_sum = open_critical_tickets + pending_critical_tickets
+
+    context= {'tickets': tickets, 'ticket_comments': ticket_comments, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
     return render(request, 'issue_tracker/admin_dashboard.html', context)

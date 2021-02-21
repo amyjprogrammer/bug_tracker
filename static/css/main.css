@@ -60,3 +60,15 @@ label {
 #logout {
   background-color: white;
 }
+
+#open-tickets {
+  background-color: #4cb4c7;
+}
+
+#pending-tickets {
+  background-color: #7abecc;
+}
+
+#critical-tickets {
+  background-color: #c71c55;
+}
