@@ -10,7 +10,7 @@ class Ticket(models.Model):
     ticket_choices = [
         ('Bug', 'Bug'),
         ('Enhancement', 'Enhancement'),
-        ('New_Feature', 'New_Feature'),
+        ('New_Feature', 'New Feature'),
     ]
     ticket_choice = models.CharField(max_length=20, choices=ticket_choices, default='Bug')
     issue_description = models.TextField()

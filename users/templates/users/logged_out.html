@@ -1,0 +1,16 @@
+{% extends 'issue_tracker/base.html' %}
+
+{% block content %}
+  <div class="card border-success">
+    <div class="card-header pt-3 text-center" id="logout">
+      <h3>You have been logged out.  Thank you for visiting!</h3>
+    </div>
+    <div class="border-top pt-2 mb-3 ps-3">
+      <small class="text-muted">
+          Sign back in? <a class="ml-2" href="{% url 'login' %}">Log In</a>
+      </small>
+    </div>
+  </div>
+
+
+{% endblock content %}

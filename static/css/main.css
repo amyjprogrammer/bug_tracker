@@ -43,3 +43,16 @@ body {
 label {
   padding: .5rem;
 }
+
+#ticket_choice {
+  font-size: 12px;
+  padding-left: 1rem;
+}
+
+.form-group {
+  padding-bottom: 0.5rem;
+}
+
+#logout {
+  background-color: white;
+}

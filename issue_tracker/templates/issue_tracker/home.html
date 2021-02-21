@@ -26,8 +26,7 @@
       <div class="card card-body border-success mb-1 mt-2">
         <div class="d-flex w-100 justify-content-between ">
 
-          <h4 class="text-capitalize text-decoration-underline">{{ ticket.title }}</h4>
-
+          <h4 class="text-capitalize text-decoration">{{ ticket.title }} <small id="ticket_choice"> ({{ ticket.ticket_choice }}) </small></h4>
           {% if ticket.comments.count >= 1 %}
             <div class="ball">
               <span class="badge badge-pill bg-primary">{{ ticket.comments.count }}</span>
@@ -35,6 +34,7 @@
             </div>
           {% endif %}
         </div>
+
 
         <div class="row mt-1 ">
           <p class="issue-description text-truncate">{{ ticket.issue_description }}</p>

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #my apps
     'issue_tracker',
+    'users',
 
     #installed django apps
     'crispy_forms',
