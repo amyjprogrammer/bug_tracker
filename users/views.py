@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 from .forms import CreateUserForm
 
@@ -14,6 +15,7 @@ def register(request):
         form = CreateUserForm(data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,f'Your account had been created!')
             return redirect('login')
 
     context = {'form': form}
