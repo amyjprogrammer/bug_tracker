@@ -73,6 +73,7 @@ def admin_dashboard(request):
 
 @login_required
 def create_ticket(request):
+    """create new bug ticket"""
     if request.method != 'POST':
         #blank form
         form = TicketForm()
@@ -86,3 +87,28 @@ def create_ticket(request):
 
     context = {'form': form}
     return render(request, 'issue_tracker/create_ticket.html', context)
+
+@login_required
+def add_admin_ticket(request, ticket_id):
+    """add admin info like priority and status"""
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    if request.method != 'POST':
+        #blank form
+        admin_form = AdminTicketForm()
+        #show ticket info
+        ticket_form = TicketForm(instance=ticket)
+    else:
+        #updating the status and priority
+        admin_form = AdminTicketForm(request.POST)
+        ticket_form = TicketForm(request.POST, instance=ticket)
+
+        if admin_form.is_valid() and ticket_form.is_valid():
+            add_ticket = admin_form.save(commit=False)
+            add_ticket.admin_ticket = ticket
+            add_ticket.save()
+            ticket_form.save()
+            messages.success(request, f'You have updated the ticket.')
+            return redirect('issue_tracker:admin_dashboard')
+
+    context = {'ticket': ticket, 'admin_form': admin_form, 'ticket_form': ticket_form}
+    return render(request, 'issue_tracker/add_admin_ticket.html', context)

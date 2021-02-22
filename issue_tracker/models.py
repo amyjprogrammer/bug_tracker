@@ -43,4 +43,4 @@ class AdminTicket(models.Model):
         ('Closed', 'Closed'),
     ]
     status_choice = models.CharField(max_length=10, choices=status_choices, default="Open")
-    additional_comments = models.CharField(max_length=350)
+    additional_comments = models.CharField(max_length=350, blank=True, null=True)
