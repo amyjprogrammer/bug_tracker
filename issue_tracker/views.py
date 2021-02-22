@@ -112,3 +112,27 @@ def add_admin_ticket(request, ticket_id):
 
     context = {'ticket': ticket, 'admin_form': admin_form, 'ticket_form': ticket_form}
     return render(request, 'issue_tracker/add_admin_ticket.html', context)
+
+@login_required
+def edit_admin_ticket(request, ticket_id):
+    """Update both the admin and ticket info"""
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    admin = get_object_or_404(AdminTicket, id=ticket_id)
+    if request.method != 'POST':
+        #show admin info
+        admin_form = AdminTicketForm(instance=admin)
+        #show ticket info
+        ticket_form = TicketForm(instance=ticket)
+    else:
+        #updating both ticket and admin info
+        admin_form = AdminTicketForm(request.POST, instance=admin)
+        ticket_form = TicketForm(request.POST, instance=ticket)
+
+        if admin_form.is_valid() and ticket_form.is_valid():
+            admin_form.save()
+            ticket_form.save()
+            messages.success(request, f'You have updated the ticket.')
+            return redirect('issue_tracker:admin_dashboard')
+
+    context = {'ticket': ticket, 'admin_form': admin_form, 'ticket_form': ticket_form, 'admin': admin}
+    return render(request, 'issue_tracker/edit_admin_ticket.html', context)

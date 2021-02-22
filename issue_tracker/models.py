@@ -36,11 +36,11 @@ class AdminTicket(models.Model):
         ('High', 'High'),
         ('Normal', 'Normal'),
     ]
-    priority_choice = models.CharField(max_length=10, choices=priority_choices, default= "Normal")
+    priority_choice = models.CharField(max_length=10, choices=priority_choices, blank=True, null=True)
     status_choices =[
         ('Open', 'Open'),
         ('Pending', 'Pending'),
         ('Closed', 'Closed'),
     ]
-    status_choice = models.CharField(max_length=10, choices=status_choices, default="Open")
+    status_choice = models.CharField(max_length=10, choices=status_choices, blank=True, null=True)
     additional_comments = models.CharField(max_length=350, blank=True, null=True)

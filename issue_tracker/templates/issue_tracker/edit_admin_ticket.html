@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %}Add Admin Ticket {% endblock title %}
+{% block title %}Edit Admin Ticket {% endblock title %}
 
 {% block content %}
 <div class="card border-success">
@@ -13,12 +13,12 @@
   </div>
 
   <div class="card-body mb-2 pt-4">
-    <form action="{% url 'issue_tracker:add_admin_ticket' ticket.id, admin.id %}" method="post">
+    <form action="{% url 'issue_tracker:edit_admin_ticket' ticket.id %}" method="post">
       {% csrf_token %}
       {{ ticket_form|crispy }}
       {{ admin_form|crispy }}
       <br>
-        <button class="btn btn-secondary" name="submit">Add Admin Info</button>
+        <button class="btn btn-secondary" name="submit">Update Info</button>
 
 
     </form>
