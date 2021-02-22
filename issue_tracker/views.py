@@ -136,3 +136,19 @@ def edit_admin_ticket(request, ticket_id):
 
     context = {'ticket': ticket, 'admin_form': admin_form, 'ticket_form': ticket_form, 'admin': admin}
     return render(request, 'issue_tracker/edit_admin_ticket.html', context)
+
+@login_required
+def edit_ticket(request, ticket_id):
+    """edit bug ticket"""
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    if request.method != 'POST':
+        #show previous info
+        form = TicketForm(instance=ticket)
+    else:
+        form = TicketForm(request.POST, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect('issue_tracker:admin_dashboard')
+
+    context = {'form': form, 'ticket': ticket}
+    return render(request, 'issue_tracker/edit_ticket.html', context)
