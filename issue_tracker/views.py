@@ -70,3 +70,19 @@ def admin_dashboard(request):
 
     context= {'tickets': tickets, 'ticket_comments': ticket_comments, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
     return render(request, 'issue_tracker/admin_dashboard.html', context)
+
+@login_required
+def create_ticket(request):
+    if request.method != 'POST':
+        #blank form
+        form = TicketForm()
+    else:
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            add_ticket = form.save(commit=False)
+            add_ticket.ticket_author = request.user
+            add_ticket.save()
+            return redirect('issue_tracker:admin_dashboard')
+
+    context = {'form': form}
+    return render(request, 'issue_tracker/create_ticket.html', context)

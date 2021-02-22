@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
       {% if user.is_authenticated %}
       <li class="nav-item">
-          <a class="nav-link" href="#">Create Ticket</a>
+          <a class="nav-link" href="{% url 'issue_tracker:create_ticket' %}">Create Ticket</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" href="#">Profile</a>

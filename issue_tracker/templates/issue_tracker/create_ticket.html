@@ -1,0 +1,27 @@
+{% extends 'issue_tracker/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Ticket {% endblock title %}
+
+{% block content %}
+<div class="card border-success">
+  <div class="card-header pt-4">
+
+      <a class="btn btn-primary" href="{% url 'issue_tracker:admin_dashboard' %}" >Home</a>
+
+  </div>
+
+  <div class="card-body mb-2 pt-4">
+    <form action="{% url 'issue_tracker:create_ticket' %}" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+        <button class="btn btn-secondary" name="submit">Add ticket</button>
+
+
+    </form>
+  </div>
+</div>
+
+
+{% endblock content %}
