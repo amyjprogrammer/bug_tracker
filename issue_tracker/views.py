@@ -55,7 +55,7 @@ def add_ticket_comment(request, ticket_id):
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
     tickets = Ticket.objects.all()
-    ticket_comments = TicketComment.objects.all()
+    ticket_comments = TicketComment.objects.all().order_by('-created_date')
     admin_tickets = AdminTicket.objects.all()
     paginator = Paginator(ticket_comments, 10) # Show 10 contacts per page.
 
