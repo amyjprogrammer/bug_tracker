@@ -57,6 +57,10 @@ def admin_dashboard(request):
     tickets = Ticket.objects.all()
     ticket_comments = TicketComment.objects.all()
     admin_tickets = AdminTicket.objects.all()
+    paginator = Paginator(ticket_comments, 10) # Show 10 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     open_admin = AdminTicket.objects.filter(status_choice = 'Open')
     open_tickets = open_admin.count()
@@ -68,7 +72,7 @@ def admin_dashboard(request):
 
     critical_sum = open_critical_tickets + pending_critical_tickets
 
-    context= {'tickets': tickets, 'ticket_comments': ticket_comments, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
+    context= {'tickets': tickets, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
     return render(request, 'issue_tracker/admin_dashboard.html', context)
 
 @login_required

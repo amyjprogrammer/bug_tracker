@@ -26,7 +26,7 @@ class TicketComment(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.comment_text
+        return f"{self.comment_text[:50]}..."
 
 class AdminTicket(models.Model):
     #allows the admin to assign a priority and status to the ticket
