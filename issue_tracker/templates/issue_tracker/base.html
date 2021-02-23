@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-    <title>Bug Tracker</title>
+    <title>{% block title %}  {% endblock title %}</title>
   </head>
   <body>
   {% include 'issue_tracker/nav_bar.html' %}
@@ -27,7 +27,7 @@
         </strong>
       </div>
     {% endif %}
-    
+
     {% block content %} {% endblock content %}
     </div>
   </div>

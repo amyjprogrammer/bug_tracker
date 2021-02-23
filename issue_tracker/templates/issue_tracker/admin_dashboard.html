@@ -94,7 +94,7 @@
 
 						<td><a class="btn btn-sm btn-info" href="{% url 'issue_tracker:add_admin_ticket' admin.id %}">Add</a></td>
 
-						<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'issue_tracker:delete_ticket' admin.id %}">Delete</a></td>
 
 					</tr>
 

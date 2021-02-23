@@ -156,3 +156,16 @@ def edit_ticket(request, ticket_id):
 
     context = {'form': form, 'ticket': ticket}
     return render(request, 'issue_tracker/edit_ticket.html', context)
+
+@login_required
+def delete_ticket(request, ticket_id):
+    """option to delete a ticket, but will take you to a page to make sure"""
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == "POST":
+        ticket.delete()
+        messages.success(request, f'You have deleted the ticket.')
+        return redirect('issue_tracker:admin_dashboard')
+
+    context = {"ticket": ticket}
+    return render(request, 'issue_tracker/delete_ticket.html', context)

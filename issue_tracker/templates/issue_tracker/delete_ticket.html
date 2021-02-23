@@ -1,0 +1,30 @@
+{% extends 'issue_tracker/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+  Delete ticket
+{% endblock title %}
+
+
+{% block content %}
+<div class="card border-success">
+  <div class="card-header pt-4">
+    <a href="{% url 'issue_tracker:admin_dashboard' %}" class="btn btn-primary">Home</a>
+  </div>
+
+  <div class="card-body mb-2 pt-4">
+    <h3>Are you sure you want to delete your ticket for {{ticket.title}}? Issue description: {{ticket.issue_description}}</h3>
+
+    <form action="{% url 'issue_tracker:delete_ticket' ticket.id %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br>
+          <button class="btn btn-danger" name="submit">Delete</button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock content %}
