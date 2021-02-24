@@ -13,7 +13,7 @@
   </div>
 
   <div class="card-body mb-2 pt-4">
-    <form action="{% url 'issue_tracker:edit_admin_ticket' ticket.id %}" method="post">
+    <form action="{% url 'issue_tracker:edit_admin_ticket' ticket.id admin.id %}" method="post">
       {% csrf_token %}
       {{ ticket_form|crispy }}
       {{ admin_form|crispy }}

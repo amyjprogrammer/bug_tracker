@@ -11,7 +11,7 @@ class InlineTicketComment(admin.StackedInline):
 
 class InlineAdminTicket(admin.StackedInline):
     model = AdminTicket
-    extra = 1
+
 
 class TicketAdmin(admin.ModelAdmin):
     inlines = [ InlineAdminTicket, InlineTicketComment,]

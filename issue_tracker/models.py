@@ -20,7 +20,7 @@ class Ticket(models.Model):
         return self.ticket_author
 
 class TicketComment(models.Model):
-    comment = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments')
+    comment = models.ForeignKey(Ticket, on_delete=models.CASCADE,  related_name='comments')
     comment_author = models.CharField(max_length=75)
     comment_text = models.CharField(max_length=550)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -30,7 +30,7 @@ class TicketComment(models.Model):
 
 class AdminTicket(models.Model):
     #allows the admin to assign a priority and status to the ticket
-    admin_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    admin_ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE, related_name ='admin')
     priority_choices =[
         ("Critical", 'Critical'),
         ('High', 'High'),

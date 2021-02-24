@@ -54,13 +54,15 @@ def add_ticket_comment(request, ticket_id):
 @login_required
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.all().order_by('-date_added')
     ticket_comments = TicketComment.objects.all().order_by('-created_date')
     admin_tickets = AdminTicket.objects.all()
     paginator = Paginator(ticket_comments, 10) # Show 10 contacts per page.
+    paginators = Paginator(tickets, 10) # Show 10 contacts per page.
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    page_objs = paginators.get_page(page_number)
 
     open_admin = AdminTicket.objects.filter(status_choice = 'Open')
     open_tickets = open_admin.count()
@@ -72,7 +74,7 @@ def admin_dashboard(request):
 
     critical_sum = open_critical_tickets + pending_critical_tickets
 
-    context= {'tickets': tickets, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
+    context= {'page_objs': page_objs, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
     return render(request, 'issue_tracker/admin_dashboard.html', context)
 
 @login_required
@@ -118,10 +120,10 @@ def add_admin_ticket(request, ticket_id):
     return render(request, 'issue_tracker/add_admin_ticket.html', context)
 
 @login_required
-def edit_admin_ticket(request, ticket_id):
+def edit_admin_ticket(request, ticket_id, admin_id):
     """Update both the admin and ticket info"""
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    admin = get_object_or_404(AdminTicket, id=ticket_id)
+    admin = get_object_or_404(AdminTicket, id=admin_id)
     if request.method != 'POST':
         #show admin info
         admin_form = AdminTicketForm(instance=admin)

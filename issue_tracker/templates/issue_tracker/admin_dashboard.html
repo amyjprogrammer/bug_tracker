@@ -83,18 +83,18 @@
 					<th>Remove</th>
 				</tr>
 
-				{% for admin in admin_tickets %}
+				{% for ticket in page_objs %}
 
 					<tr>
 
-						<td>{{admin.admin_ticket.title|truncatewords:25}}</td>
-						<td>{{admin.admin_ticket.ticket_choice}}</td>
-						<td>{{admin.priority_choice}}</td>
-						<td>{{ admin.status_choice }}</td>
+						<td>{{ticket.title|truncatewords:'25'}}</td>
+						<td>{{ticket.ticket_choice}}</td>
+						<td>{{ticket.admin.priority_choice}}</td>
+						<td>{{ ticket.admin.status_choice }}</td>
 
-						<td><a class="btn btn-sm btn-info" href="{% url 'issue_tracker:add_admin_ticket' admin.id %}">Add</a></td>
+						<td><a class="btn btn-sm btn-info" href="/edit_admin_ticket/{{ticket.id}}/{{ticket.admin.id}}/">Update</a></td>
 
-						<td><a class="btn btn-sm btn-danger" href="{% url 'issue_tracker:delete_ticket' admin.id %}">Delete</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'issue_tracker:delete_ticket' ticket.id %}">Delete</a></td>
 
 					</tr>
 
@@ -105,24 +105,51 @@
 
 </div>
 
-<!--Pagination for 10 per page -->
-<div class="pagination">
-	<span class="step-links">
-		{% if page_obj.has_previous %}
-				<a href="?page=1">&laquo; first</a>
-				<a href="?page={{ page_obj.previous_page_number }}">previous</a>
-		{% endif %}
+<!--Pagination for 10 per page for comments -->
+<div class="row">
+	<div class="col-md-4">
 
-		<span class="current">
-				Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-		</span>
 
-		{% if page_obj.has_next %}
-				<a href="?page={{ page_obj.next_page_number }}">next</a>
-				<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-		{% endif %}
-	</span>
-</div>
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+				{% endif %}
+
+				<span class="current">
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">next</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+				{% endif %}
+			</span>
+		</div>
+	</div>
+
+<!--Pagination for 10 per page for tickets -->
+	<div class="col-md-8">
+		<div class="pagination">
+
+			<span class="step-links">
+				{% if page_objs.has_previous %}
+						<a href="?page1=1">&laquo; first</a>
+						<a href="?page1={{ page_objs.previous_page_number1 }}">previous</a>
+				{% endif %}
+
+				<span class="current">
+						Page {{ page_objs.number }} of {{ page_objs.paginator.num_pages }}.
+				</span>
+
+				{% if page_objs.has_next %}
+						<a href="?page1={{ page_objs.next_page_number }}">next</a>
+						<a href="?page1={{ page_objs.paginator.num_pages }}">last &raquo;</a>
+				{% endif %}
+			</span>
+		</div>
+	</div>
 </div>
 
 
