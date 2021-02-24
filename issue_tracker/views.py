@@ -61,6 +61,7 @@ def admin_dashboard(request):
     paginators = Paginator(tickets, 10) # Show 10 contacts per page.
 
     page_number = request.GET.get('page')
+    page_number1 = request.GET.get('page1')
     page_obj = paginator.get_page(page_number)
     page_objs = paginators.get_page(page_number)
 
@@ -171,3 +172,13 @@ def delete_ticket(request, ticket_id):
 
     context = {"ticket": ticket}
     return render(request, 'issue_tracker/delete_ticket.html', context)
+
+@login_required
+def delete_comment(request, comment_id):
+    """Delete a comment"""
+    comment = TicketComment.objects.get(id=comment_id)
+
+    if request.method == "POST":
+        comment.delete()
+        context = {'comment': comment}
+        return redirect('issue_tracker:admin_dashboard')
