@@ -7,9 +7,4 @@ from .models import Ticket, AdminTicket
 @receiver(post_save, sender=Ticket)
 def create_adminticket(sender, instance, created, **kwargs):
     if created:
-        AdminTicket.objects.create(ticket=instance)
-
-#save AdminTicket when Ticket is saved
-@receiver(post_save, sender=Ticket)
-def save_adminticket(sender, instance, created, **kwargs):
-    instance.adminticket.save()
+        AdminTicket.objects.create(admin_ticket=instance)
