@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-from .filters import TicketFilter
+from .filters import TicketFilter, AdminTicketFilter, TicketCommentFilter
 from .models import Ticket, TicketComment, AdminTicket
 from .forms import TicketForm, TicketCommentForm, AdminTicketForm
 
@@ -55,7 +55,11 @@ def add_ticket_comment(request, ticket_id):
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
     tickets = Ticket.objects.all().order_by('-date_added')
+    myFilter = AdminTicketFilter(request.GET, queryset=tickets)
+    tickets = myFilter.qs
     ticket_comments = TicketComment.objects.all().order_by('-created_date')
+    myCommentFilter = TicketCommentFilter(request.GET, queryset=ticket_comments)
+    ticket_comments = myCommentFilter.qs
     admin_tickets = AdminTicket.objects.all()
     paginator = Paginator(ticket_comments, 10) # Show 10 contacts per page.
     paginators = Paginator(tickets, 10) # Show 10 contacts per page.
@@ -75,7 +79,7 @@ def admin_dashboard(request):
 
     critical_sum = open_critical_tickets + pending_critical_tickets
 
-    context= {'page_objs': page_objs, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum}
+    context= {'page_objs': page_objs, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum, 'myFilter': myFilter, 'myCommentFilter': myCommentFilter}
     return render(request, 'issue_tracker/admin_dashboard.html', context)
 
 @login_required
