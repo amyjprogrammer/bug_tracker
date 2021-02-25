@@ -176,7 +176,7 @@ def delete_ticket(request, ticket_id):
 @login_required
 def delete_comment(request, comment_id):
     """Delete a comment"""
-    comment = TicketComment.objects.get(id=comment_id)
+    comment = get_object_or_404(TicketComment, id=comment_id)
 
     if request.method == "POST":
         comment.delete()

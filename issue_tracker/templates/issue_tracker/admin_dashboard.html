@@ -63,6 +63,7 @@
 							<form action="{% url 'issue_tracker:delete_comment' comment.id %}" method='post'>
 							{% csrf_token %}
 							<button type='submit' class="btn btn-danger">Delete</button>
+							</form>
 						</td>
 						<td>{{comment.comment_text}}</td>
 					</tr>
