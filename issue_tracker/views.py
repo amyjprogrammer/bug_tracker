@@ -7,6 +7,8 @@ from django.core.paginator import Paginator
 from .filters import TicketFilter, AdminTicketFilter, TicketCommentFilter
 from .models import Ticket, TicketComment, AdminTicket
 from .forms import TicketForm, TicketCommentForm, AdminTicketForm
+from .decorators import allowed_users
+
 
 #Home page will show all the open tickets (no login required)
 def home(request):
@@ -20,6 +22,7 @@ def home(request):
     context = {'page_obj': page_obj, 'tickets': tickets, 'myFilter': myFilter}
     return render(request, 'issue_tracker/home.html', context)
 
+#no login required to view the ticket and comments
 def ticket_comment(request, ticket_id):
     """show all the comments with one ticket"""
     tickets = Ticket.objects.filter(id=ticket_id)
@@ -32,7 +35,7 @@ def ticket_comment(request, ticket_id):
     context = {'tickets': tickets, 'page_obj' : page_obj, 'ticket':ticket}
     return render(request, 'issue_tracker/ticket_comment.html', context)
 
-
+#no login required to add a comment
 def add_ticket_comment(request, ticket_id):
     """adding a comment form"""
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -52,6 +55,7 @@ def add_ticket_comment(request, ticket_id):
     return render(request, 'issue_tracker/add_ticket_comment.html', context)
 
 @login_required
+@allowed_users(allowed_groups=['admin'])
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
     tickets = Ticket.objects.all().order_by('-date_added')
@@ -100,6 +104,7 @@ def create_ticket(request):
     return render(request, 'issue_tracker/create_ticket.html', context)
 
 @login_required
+@allowed_users(allowed_groups=['admin'])
 def add_admin_ticket(request, ticket_id):
     """add admin info like priority and status"""
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -125,6 +130,7 @@ def add_admin_ticket(request, ticket_id):
     return render(request, 'issue_tracker/add_admin_ticket.html', context)
 
 @login_required
+@allowed_users(allowed_groups=['admin'])
 def edit_admin_ticket(request, ticket_id, admin_id):
     """Update both the admin and ticket info"""
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -178,6 +184,7 @@ def delete_ticket(request, ticket_id):
     return render(request, 'issue_tracker/delete_ticket.html', context)
 
 @login_required
+@allowed_users(allowed_groups=['admin'])
 def delete_comment(request, comment_id):
     """Delete a comment"""
     comment = get_object_or_404(TicketComment, id=comment_id)

@@ -4,7 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .forms import CreateUserForm, UserUpdateForm
+from .decorators import unauthenticated_user
 
+@unauthenticated_user
 def register(request):
     """creating a new account"""
     if request.method != 'POST':

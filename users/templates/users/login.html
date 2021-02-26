@@ -12,7 +12,7 @@
       {{ form|crispy }}
 
       <button class= "btn btn-success" name="submit">Log in</button>
-      <input type="hidden" name="next" value="{% url 'issue_tracker:admin_dashboard' %}" />
+      <input type="hidden" name="next" value="{% url 'issue_tracker:home' %}" />
       <small class="text-muted">
         <a class="ml-2" href="{% url 'password_reset' %}">Forgot Password?</a>
       </small>
