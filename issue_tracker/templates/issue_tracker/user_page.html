@@ -28,6 +28,7 @@
 					<th>Title</th>
 					<th>Ticket Choice</th>
 					<th>Issue Description</th>
+          <th>Ticket Status</th>
 					<th>Update</th>
 					<th>Review Comments</th>
 				</tr>
@@ -39,6 +40,7 @@
 						<td>{{ticket.title|truncatechars:35}}</td>
 						<td>{{ticket.ticket_choice}}</td>
 						<td>{{ ticket.issue_description|truncatechars:60 }}</td>
+            <td>{{ ticket.admin.status_choice }}</td>
 
 						<td><a class="btn btn-sm btn-secondary" href="{% url 'issue_tracker:edit_ticket' ticket.id %}">Update</a></td>
 

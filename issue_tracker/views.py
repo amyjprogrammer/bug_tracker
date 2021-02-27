@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .filters import TicketFilter, AdminTicketFilter, TicketCommentFilter
 from .models import Ticket, TicketComment, AdminTicket
@@ -92,8 +92,6 @@ def user_page(request):
     tickets = Ticket.objects.filter(ticket_author=request.user).order_by('-date_added')
     myFilter = TicketFilter(request.GET, queryset=tickets)
     tickets = myFilter.qs
-
-
 
     context = {"tickets": tickets, "myFilter": myFilter}
     return render(request, 'issue_tracker/user_page.html', context)

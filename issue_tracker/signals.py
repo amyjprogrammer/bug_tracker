@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 from .models import Ticket, AdminTicket
 
 #create AdminTicket for each new Ticket
