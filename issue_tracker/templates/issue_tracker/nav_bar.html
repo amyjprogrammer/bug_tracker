@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 border">
   <div class="container-fluid">
-  <a class="navbar-brand ms-5" href="{% url 'issue_tracker:home' %}">TICKET TRACKER</a>
+  <a class="navbar-brand ms-3" href="{% url 'issue_tracker:home' %}">TICKET TRACKER</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
       {% if user.is_authenticated %}
       <li class="nav-item">
           <a class="nav-link" href="{% url 'issue_tracker:admin_dashboard' %}">Dashboard</a>
@@ -14,11 +14,17 @@
       <li class="nav-item">
           <a class="nav-link" href="{% url 'issue_tracker:create_ticket' %}">Create Ticket</a>
       </li>
+      {% endif %}
+    </ul>
+    <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+      {% if user.is_authenticated %}
+
+      <span class="navbar-text me-2">Hello, {{ user.username }}</span>
       <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Profile</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="nav-link me-2" href="{% url 'logout' %}">Logout</a>
       </li>
       {%  else %}
       <li class="nav-item">

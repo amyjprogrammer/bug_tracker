@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
 from .forms import CreateUserForm, UserUpdateForm
 from .decorators import unauthenticated_user
+
 
 @unauthenticated_user
 def register(request):
@@ -16,7 +18,11 @@ def register(request):
         #completed the info and setting up an account
         form = CreateUserForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
+
             messages.success(request,f'Your account had been created!')
             return redirect('login')
 
