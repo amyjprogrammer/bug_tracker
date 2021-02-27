@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from .filters import TicketFilter, AdminTicketFilter, TicketCommentFilter
 from .models import Ticket, TicketComment, AdminTicket
 from .forms import TicketForm, TicketCommentForm, AdminTicketForm
-from .decorators import allowed_users
+from .decorators import allowed_users, admin_only
 
 
 #Home page will show all the open tickets (no login required)
@@ -55,7 +55,7 @@ def add_ticket_comment(request, ticket_id):
     return render(request, 'issue_tracker/add_ticket_comment.html', context)
 
 @login_required
-@allowed_users(allowed_groups=['admin'])
+@admin_only
 def admin_dashboard(request):
     """page for admin to see all issues and info"""
     tickets = Ticket.objects.all().order_by('-date_added')
@@ -85,6 +85,12 @@ def admin_dashboard(request):
 
     context= {'page_objs': page_objs, 'page_obj': page_obj, "admin_tickets": admin_tickets, 'open_tickets': open_tickets, 'pending_tickets': pending_tickets, 'open_critical_tickets' : open_critical_tickets, 'pending_critical_tickets': pending_critical_tickets, 'critical_sum': critical_sum, 'myFilter': myFilter, 'myCommentFilter': myCommentFilter}
     return render(request, 'issue_tracker/admin_dashboard.html', context)
+
+@login_required
+def user_page(request):
+    """login page for customer"""
+    context = {}
+    return render(request, 'issue_tracker/user_page.html', context)
 
 @login_required
 def create_ticket(request):
