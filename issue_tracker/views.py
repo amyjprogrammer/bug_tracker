@@ -89,7 +89,13 @@ def admin_dashboard(request):
 @login_required
 def user_page(request):
     """login page for customer"""
-    context = {}
+    tickets = Ticket.objects.filter(ticket_author=request.user).order_by('-date_added')
+    myFilter = TicketFilter(request.GET, queryset=tickets)
+    tickets = myFilter.qs
+
+
+
+    context = {"tickets": tickets, "myFilter": myFilter}
     return render(request, 'issue_tracker/user_page.html', context)
 
 @login_required
@@ -177,6 +183,7 @@ def edit_ticket(request, ticket_id):
     return render(request, 'issue_tracker/edit_ticket.html', context)
 
 @login_required
+@allowed_users(allowed_groups=['admin'])
 def delete_ticket(request, ticket_id):
     """option to delete a ticket, but will take you to a page to make sure"""
     ticket = get_object_or_404(Ticket, id=ticket_id)

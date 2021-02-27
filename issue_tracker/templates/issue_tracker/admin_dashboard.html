@@ -6,48 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-<div class="row">
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="open-tickets">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Open Tickets</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{open_tickets}}</h3>
-			  	</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="pending-tickets">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Pending Tickets</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{pending_tickets}}</h3>
-			  	</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="critical-tickets">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Critical Tickets</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{ critical_sum }}</h3>
-			  	</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<br>
+{% include 'issue_tracker/dashboard_top.html' %}
 
 <div class="row">
 	<div class="col-md-4">

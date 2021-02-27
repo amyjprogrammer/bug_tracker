@@ -6,5 +6,55 @@
 
 {% block content %}
 
+<div class="row">
+	<div class="col-md-12">
+		<h5>{{user.username}} TICKETS:</h5>
+		<hr>
+
+		<div class="card card-body">
+      <div class="d-flex justify-content-evenly p-1 m-1">
+        <form method="get">
+          {{ myFilter.form }}
+          <button type="submit" class="btn btn-primary ms-3">Search</button>
+        </form>
+      </div>
+    </div>
+		<br>
+
+		<div class="card card-body">
+			<a class="btn btn-success  btn-sm btn-block" href="{% url 'issue_tracker:create_ticket' %}">Create Ticket</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Title</th>
+					<th>Ticket Choice</th>
+					<th>Issue Description</th>
+					<th>Update</th>
+					<th>Review Comments</th>
+				</tr>
+
+				{% for ticket in tickets %}
+
+					<tr>
+
+						<td>{{ticket.title|truncatechars:35}}</td>
+						<td>{{ticket.ticket_choice}}</td>
+						<td>{{ ticket.issue_description|truncatechars:60 }}</td>
+
+						<td><a class="btn btn-sm btn-secondary" href="{% url 'issue_tracker:edit_ticket' ticket.id %}">Update</a></td>
+
+						<td><a class="btn btn-sm btn-info" href="{% url 'issue_tracker:ticket_comment' ticket.id %}">Comments</a></td>
+
+					</tr>
+
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
+
+
 
 {% endblock content %}
