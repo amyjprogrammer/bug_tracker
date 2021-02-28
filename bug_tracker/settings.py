@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     #installed django apps
     'crispy_forms',
     'django_filters',
+    'storages',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,6 +126,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -138,6 +140,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+ADMIN_MEDIA_PREFIX = '/static/admin/'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
@@ -149,3 +153,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_KEY')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = "django-aj-issue-tracker"
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_S3_REGION_NAME = "us-east-2"
+AWS_S3_HOST = "s3.us-east-2.amazonaws.com"
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

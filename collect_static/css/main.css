@@ -1,0 +1,78 @@
+.list-group-item-action {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 10px 10px 0px 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#ticket_look:hover {
+  background-color: lightgray;
+}
+
+.list-group-item, .list-group-item:hover {
+  z-index: auto;
+}
+
+.issue-description {
+  font-size: 17px;
+  padding: 1rem 5rem 1rem 1rem;
+  color: blue;
+  margin-left: .5rem;
+}
+
+.card-body {
+  padding: .5rem 1rem 0rem 1rem;
+}
+
+
+.full-comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.asteriskField {
+  display: none;
+}
+
+body {
+  background-color: #ebeff5;
+}
+
+label {
+  padding: .5rem;
+}
+
+#ticket_choice {
+  font-size: 12px;
+  padding-left: 1rem;
+}
+
+.form-group {
+  padding-bottom: 0.5rem;
+}
+
+#logout {
+  background-color: white;
+}
+
+#open-tickets {
+  background-color: #4cb4c7;
+}
+
+#pending-tickets {
+  background-color: #7abecc;
+}
+
+#critical-tickets {
+  background-color: #c71c55;
+}
+
+#pagination-2 {
+  text-align: right;
+}
